@@ -114,6 +114,11 @@ export default async function Home() {
     .reverse()
     .map((item) => item.media);
 
+  const selectedBannerMedia =
+    listMediasToBannerSection[randomIndexForBannerSection] ||
+    listMediasToBannerSection[0] ||
+    null;
+
   return (
     <main id={styles.container} className={styles.main}>
       {/* HERO */}
@@ -140,73 +145,56 @@ export default async function Home() {
       </section>
 
       {/* SECTION => Media Banner With Trailer Embeded  */}
-      <section
-        id={styles.media_banner_container}
-        style={{
-          background: `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${listMediasToBannerSection[randomIndexForBannerSection]?.bannerImage})`,
-        }}
-      >
-        <div>
-          <div id={styles.media_info}>
-            {listMediasToBannerSection[randomIndexForBannerSection] && (
+      {selectedBannerMedia && (
+        <section
+          id={styles.media_banner_container}
+          style={{
+            background: `linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(${selectedBannerMedia.bannerImage || ""})`,
+          }}
+        >
+          <div>
+            <div id={styles.media_info}>
               <h3>
-                <Link
-                  href={`/media/${listMediasToBannerSection[randomIndexForBannerSection].id}`}
-                >
-                  {
-                    listMediasToBannerSection[randomIndexForBannerSection].title
-                      .romaji
-                  }
+                <Link href={`/media/${selectedBannerMedia.id}`}>
+                  {selectedBannerMedia.title?.romaji || selectedBannerMedia.title?.userPreferred || ""}
                 </Link>
               </h3>
-            )}
 
-            {listMediasToBannerSection[randomIndexForBannerSection]
-              ?.description && (
-              <span>
-                {parse(
-                  listMediasToBannerSection[
-                    randomIndexForBannerSection
-                  ].description.replace(
-                    new RegExp(`<br[^>]*>|<\/br>`, "gi"),
-                    " "
-                  )
-                )}
-              </span>
-            )}
+              {selectedBannerMedia.description && (
+                <span>
+                  {parse(
+                    selectedBannerMedia.description.replace(
+                      new RegExp(`<br[^>]*>|<\/br>`, "gi"),
+                      " "
+                    )
+                  )}
+                </span>
+              )}
 
-            <div className={styles.item_buttons}>
-              <Link
-                href={`/media/${listMediasToBannerSection[randomIndexForBannerSection].id}`}
-              >
-                WATCH NOW
-              </Link>
+              <div className={styles.item_buttons}>
+                <Link href={`/media/${selectedBannerMedia.id}`}>
+                  WATCH NOW
+                </Link>
 
-              <AddToPlaylistButton.Button
-                mediaInfo={
-                  listMediasToBannerSection[randomIndexForBannerSection]
-                }
-              />
+                <AddToPlaylistButton.Button mediaInfo={selectedBannerMedia} />
+              </div>
+            </div>
+
+            <div id={styles.player_button_container}>
+              {selectedBannerMedia.trailer?.id && (
+                <iframe
+                  className="yt_embed_video"
+                  src={`https://www.youtube.com/embed/${selectedBannerMedia.trailer.id}?controls=0&showinfo=0`}
+                  frameBorder={0}
+                  title={`${selectedBannerMedia.title?.romaji || ""} Trailer`}
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope;"
+                  allowFullScreen
+                />
+              )}
             </div>
           </div>
-
-          <div id={styles.player_button_container}>
-            {listMediasToBannerSection[randomIndexForBannerSection].trailer && (
-              <iframe
-                className="yt_embed_video"
-                src={`https://www.youtube.com/embed/${listMediasToBannerSection[randomIndexForBannerSection].trailer.id}?controls=0&showinfo=0`}
-                frameBorder={0}
-                title={
-                  listMediasToBannerSection[randomIndexForBannerSection].title
-                    .romaji + " Trailer"
-                }
-                allow="accelerometer; autoplay; encrypted-media; gyroscope;"
-                allowFullScreen
-              />
-            )}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* SECTION => SHOWS MEDIAS SORTED BY FAVOURITES */}
       <section
