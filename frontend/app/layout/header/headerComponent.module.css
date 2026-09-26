@@ -48,41 +48,36 @@ header>div#container {
     }
 }
 
-#menu_and_logo_container>a {
-    position: relative;
-    top: 0;
-    aspect-ratio: 1117/393;
-    width: auto;
-    min-width: 120px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-}
-
-#brand_title {
+#menu_and_logo_container>a#brand_link {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    line-height: 1.1;
+    text-decoration: none;
+    line-height: 1.15;
+    padding-left: 4px;
+    padding-right: 12px;
     white-space: nowrap;
-    margin-left: 115px;
+    position: relative;
+    top: 0;
+    height: auto;
+    width: auto;
 }
 
 #brand_en {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--brand-color, #e50914);
-    letter-spacing: 1.5px;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--brand-color, #ff0055);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
 }
 
 #brand_ja {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 700;
-    color: #ffffff;
-    opacity: 0.9;
-    letter-spacing: 2px;
+    color: var(--white-100, #ffffff);
+    opacity: 0.85;
+    letter-spacing: 3px;
 }
 
 /* BUTTON */

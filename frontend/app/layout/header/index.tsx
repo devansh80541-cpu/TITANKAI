@@ -22,19 +22,9 @@ function Header() {
           {/* MENU NAVIGATION -- SCREEN LEFT SIDE -- MOBILE*/}
           <MenuList />
 
-          <Link href="/" id={styles.img_container} className="display_flex_row align_items_center">
-            <Image
-              id={styles.logo}
-              src={"/titankai-logo.png"}
-              alt="TITANKAI タイタンカイ Logo"
-              fill
-              sizes="110px"
-              priority
-            />
-            <div id={styles.brand_title}>
-              <span id={styles.brand_en}>TITANKAI</span>
-              <span id={styles.brand_ja}>タイタンカイ</span>
-            </div>
+          <Link href="/" id={styles.brand_link}>
+            <span id={styles.brand_en}>TITANKAI</span>
+            <span id={styles.brand_ja}>タイタンカイ</span>
           </Link>
         </div>
 
